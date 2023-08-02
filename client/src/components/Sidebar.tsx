@@ -4,8 +4,9 @@ import { NavLink } from 'react-router-dom'
 export default function Sidebar() {
   const styles = {
     'display': 'flex',
-    'justifyContent': 'center',
-    'padding': '1rem'
+    'flexDirection': 'column',
+    'padding': '1rem',
+    'height': '100%'
   }
 
   return (
@@ -16,8 +17,9 @@ export default function Sidebar() {
       fontSize='1.1rem'
       boxShadow='base'
     >
-      <nav className="nav-links" style={styles}>
-        <NavLink to='/'>Nendoroid List</NavLink>
+      <nav className="nav-links" style={styles as React.CSSProperties}>
+        <NavLink to='/'>All Nendoroids</NavLink>
+        <NavLink to='/create'>Create new Nendoroid</NavLink>
       </nav>
     </Stack>
   )
