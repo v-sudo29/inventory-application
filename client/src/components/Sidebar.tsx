@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 export default function Sidebar() {
   const styles = {
     'display': 'flex',
-    'justify-content': 'center',
+    'justifyContent': 'center',
     'padding': '1rem'
   }
 

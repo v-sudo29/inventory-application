@@ -1,7 +1,7 @@
 import Header from "./Header"
 import { Outlet } from 'react-router-dom'
 import Sidebar from "./Sidebar"
-import { Stack } from "@chakra-ui/react"
+import { Box, Stack } from "@chakra-ui/react"
 
 export default function Layout() {
   return (
@@ -9,7 +9,9 @@ export default function Layout() {
       <Header/>
       <Stack flexDirection='row' h='calc(100vh - 6.5rem)'>
         <Sidebar/>
-        <Outlet/>
+        <Box p='2rem'>
+          <Outlet/>
+        </Box>
       </Stack>
     </>
   )
