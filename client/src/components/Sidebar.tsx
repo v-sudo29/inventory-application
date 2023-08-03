@@ -12,13 +12,13 @@ export default function Sidebar() {
   return (
     <Stack
       flex='column'
-      w='15rem'
+      minW='15rem'
       color='cyan.500'
       fontSize='1.1rem'
       boxShadow='base'
     >
       <nav className="nav-links" style={styles as React.CSSProperties}>
-        <NavLink to='/'>All Nendoroids</NavLink>
+        <NavLink to='/'>Catalog</NavLink>
         <NavLink to='/create'>Create new Nendoroid</NavLink>
       </nav>
     </Stack>

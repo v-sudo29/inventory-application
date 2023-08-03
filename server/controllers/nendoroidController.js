@@ -20,7 +20,8 @@ exports.nendoroid_create_post = asyncHandler(async (req, res, next) => {
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
-    imageUrl: req.file.filename
+    imageUrl: req.file.filename,
+    units: req.body.units
   })
     .then(result => {
       res.json(result)

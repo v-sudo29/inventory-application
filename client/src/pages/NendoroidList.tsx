@@ -11,7 +11,7 @@ export default function NendoroidList() {
 
   useEffect(() => {
     if (!nendoroidsList) {
-      axios.get('http://localhost:3001/')
+      axios.get('http://localhost:3001/') // TODO: change path to /catalog
       .then(data => setNendoroidsList(data.data))
       .catch(err => console.error(err))
     }
@@ -27,7 +27,7 @@ export default function NendoroidList() {
   }
   return (
     <div>
-      <Heading>Nendoroid List</Heading>
+      <Heading>Catalog</Heading>
       {cards ? <HStack gap='2rem' mt='2rem'>{cards}</HStack> : '...Loading'}
     </div>
   )
