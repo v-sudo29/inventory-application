@@ -6,6 +6,9 @@ const nendoroid_controller = require('../controllers/nendoroidController')
 // GET home page, inventory list
 router.get('/', nendoroid_controller.nendoroid_list)
 
+// GET nendoroid detail
+router.get('/nendoroid/:id', nendoroid_controller.nendoroid_detail)
+
 // POST request for creating Nendoroid
 router.post('/create', upload.single('file'), nendoroid_controller.nendoroid_create_post)
 

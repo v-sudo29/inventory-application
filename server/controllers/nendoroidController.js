@@ -7,6 +7,13 @@ exports.nendoroid_list = asyncHandler(async (req, res, next) => {
   res.json(allNendoroids)
 })
 
+// GET detail of Nendoroid
+exports.nendoroid_detail = asyncHandler(async (req, res, next) => {
+  const id = req.params.id
+  const nendoroidDetails = await Nendoroid.find({_id: id}).exec()
+  res.json(nendoroidDetails)
+})
+
 // POST request to create new Nendoroid
 exports.nendoroid_create_post = asyncHandler(async (req, res, next) => {
   Nendoroid.create({
