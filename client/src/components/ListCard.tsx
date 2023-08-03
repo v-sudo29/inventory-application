@@ -20,7 +20,7 @@ export default function ListCard({nendoroid} : {nendoroid: NendoroidObject}) {
       </Box>
       <Box>
         <Text>{nendoroid.name}</Text>
-        <Text fontWeight='bold' >{nendoroid.price}</Text>
+        <Text fontWeight='bold' >{nendoroid.price.includes('$') ? nendoroid.price : '$' + nendoroid.price}</Text>
       </Box>
     </Stack>
   )
