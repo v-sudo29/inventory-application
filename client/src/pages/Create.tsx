@@ -11,7 +11,7 @@ import {
   Textarea
  } from "@chakra-ui/react"
 import { Form, useNavigate } from "react-router-dom"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import axios from "axios"
 
 export default function Create() {
@@ -19,27 +19,30 @@ export default function Create() {
   const priceRef = useRef<HTMLInputElement>(null)
   const descriptionRef = useRef<HTMLTextAreaElement>(null)
   const imageUrlRef = useRef<HTMLInputElement>(null)
+  const [fileData, setFileData] = useState<File | null>(null)
   const navigate = useNavigate()
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    console.log('handleSubmit went off!')
-    if (nameRef.current && priceRef.current && descriptionRef.current && imageUrlRef.current) {
-      axios.post('http://localhost:3001/create', {
-        name: nameRef.current.value,
-        price: (priceRef.current.firstElementChild as HTMLInputElement).value,
-        description: descriptionRef.current.value,
-        imageUrl: imageUrlRef.current.value
-      })
+    if (nameRef.current && priceRef.current && descriptionRef.current && imageUrlRef.current
+      && imageUrlRef.current.files && fileData) {
+      const formData = new FormData()
+      formData.append('file', fileData)
+      formData.append('name', nameRef.current.value)
+      formData.append('price', (priceRef.current.firstElementChild as HTMLInputElement).value)
+      formData.append('description', descriptionRef.current.value)
+      formData.append('imageUrl', '')
+
+      axios.post('http://localhost:3001/create', formData)
         .then(result => {
-          console.log(result.data.price)
+          console.log(result)
           navigate('/')
-        })
-        .catch(err => console.error(err))
+        }) 
+        .catch(err => console.log(err))
     }
   }
 
-  
   let nameError: boolean = false
   let priceError: boolean = false
   let descriptionError: boolean = false
@@ -75,11 +78,8 @@ export default function Create() {
             <NumberInputField />
           </NumberInput>
           {priceError && <FormErrorMessage>Price is required.</FormErrorMessage>}
-          <FormLabel>Image Url</FormLabel>
-          <Input ref={imageUrlRef} type='text' name='url'/>
-        </FormControl>
 
-        <FormControl>
+
           <FormLabel>Description</FormLabel>
           <Textarea
             ref={descriptionRef}
@@ -91,6 +91,16 @@ export default function Create() {
             resize='none'
           />
           {descriptionError && <FormErrorMessage>Description is required.</FormErrorMessage>}
+          <Input 
+            ref={imageUrlRef} 
+            type='file' 
+            name='imageUrl'
+            border='transparent'
+            p='0rem'
+            pt='0.2rem'
+            mt='1rem'
+            onChange={(e) => e.target.files && setFileData(e.target.files[0])} 
+          />
         </FormControl>
 
         <Button type="submit">Create</Button>
