@@ -9,12 +9,14 @@ import { ChakraProvider } from '@chakra-ui/react'
 import Layout from './components/Layout'
 import NendoroidList from './pages/NendoroidList'
 import Create from './pages/Create'
+import NendoroidDetail from './pages/NendoroidDetail'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout/>}>
-      <Route index element={<NendoroidList/>} />
-      <Route path='create' element={<Create/>} />
+      <Route index element={<NendoroidList/>}/>
+      <Route path='create' element={<Create/>}/>
+      <Route path='nendoroid/:id' element={<NendoroidDetail/>} />
     </Route>
   )
 )
@@ -26,12 +28,3 @@ export default function App() {
     </ChakraProvider>
   )
 }
-
-// Reference
-{/* <Route path='/' element={<Layout/>}>
-      <Route index element={<Home/>} />
-      <Route path='anime-list' element={<AnimeList/>} />
-      <Route path='anime/:id' element={<AnimeDetail/>} />
-      <Route path='news' element={<News/>} />
-      <Route path='character/:id' element={<CharacterDetail/>} />
-    </Route> */}

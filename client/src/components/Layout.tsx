@@ -9,7 +9,7 @@ export default function Layout() {
       <Header/>
       <Stack flexDirection='row' h='calc(100vh - 6.5rem)'>
         <Sidebar/>
-        <Box p='2rem'>
+        <Box p='2rem' w='100%'>
           <Outlet/>
         </Box>
       </Stack>

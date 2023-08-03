@@ -1,5 +1,5 @@
 interface NendoroidObject {
-  id: string,
+  _id: string,
   name: string,
   price: string,
   description: string,
