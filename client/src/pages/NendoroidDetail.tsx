@@ -38,6 +38,13 @@ export default function NendoroidDetail() {
         <VStack align='start' gap='1rem' h='100%'>
           <Text><b>Description:</b> {nendoroid.description}</Text>
           <Text><b>Price:</b> {nendoroid.price.includes('$') ? nendoroid.price : '$' + nendoroid.price}</Text>
+          <Text><b>Units: </b>{nendoroid.units < 20 ? 
+            <span>
+              <>{nendoroid.units}</> 
+              <em>&nbsp;&nbsp;&nbsp;Low in stock</em>
+            </span>: 
+            nendoroid.units}
+          </Text>
           <Text><b>Image Source: </b>{nendoroid.imageUrl}</Text>
         </VStack>
       </HStack>
