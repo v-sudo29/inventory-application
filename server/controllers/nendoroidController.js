@@ -7,7 +7,7 @@ exports.nendoroid_list = asyncHandler(async (req, res, next) => {
   res.json(allNendoroids)
 })
 
-// POST new Nendoroid
+// POST request to create new Nendoroid
 exports.nendoroid_create_post = asyncHandler(async (req, res, next) => {
   Nendoroid.create({
     name: req.body.name,
