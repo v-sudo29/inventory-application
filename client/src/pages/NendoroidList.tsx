@@ -1,13 +1,23 @@
+import { 
+  Box,
+  Heading,
+  HStack,
+  Grid,
+  IconButton,
+  useDisclosure
+} from "@chakra-ui/react"
+
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Box, Heading, HStack, Grid, IconButton } from "@chakra-ui/react"
 import { AddIcon } from "@chakra-ui/icons"
 import ListCard from "../components/ListCard"
 import NendoroidObject from "../interfaces/global_interface"
+import CreateModal from "../components/CreateModal"
 
 // Inventory list
 export default function NendoroidList() {
   const [nendoroidsList, setNendoroidsList] = useState<NendoroidObject[] | null>(null)
+  const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure()
   let cards: JSX.Element[] | null = null
 
   useEffect(() => {
@@ -30,15 +40,18 @@ export default function NendoroidList() {
     <Box pos='relative' w='100%'>
       <HStack justify='space-between'>
         <Heading>Catalog</Heading>
-        <IconButton boxSize='3rem' aria-label='Create Nendoroid' icon={<AddIcon/> }/>
+        <IconButton onClick={onCreateOpen} boxSize='3rem' aria-label='Create Nendoroid' icon={<AddIcon/> }/>
+        <CreateModal
+          isOpen={isCreateOpen}
+          onClose={onCreateClose}
+        />
       </HStack>
       {cards ? 
       <Grid 
         flexWrap='wrap' 
-        gap='2rem' 
+        gap='1rem' 
         mt='2rem'
-        templateColumns='repeat(auto-fit, minmax(12rem, 1fr))'
-        justifyItems='stretch'
+        templateColumns='repeat(auto-fit, minmax(15rem, 1fr))'
       >
         {cards}
       </Grid> : '...Loading'}

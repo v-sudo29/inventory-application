@@ -9,15 +9,22 @@ export default function ListCard({nendoroid} : {nendoroid: NendoroidObject}) {
       w='inherit'
     >
       <Link to={`/nendoroid/${nendoroid._id}`}>
-        <Box borderRadius='0.5rem' overflow='hidden' w='inherit' h='21.1rem'>
+        <Box 
+          borderRadius='0.5rem'
+          overflow='hidden'
+          w='inherit'
+          h='inherit'
+          border='1px solid red'
+        >
           <img 
             src={nendoroid.imageUrl && nendoroid.imageUrl.includes('http') ? nendoroid.imageUrl : 'http://localhost:3001/images/' + `${nendoroid.imageUrl}` }
             // src={nendoroid.imageUrl.includes('http') ? nendoroid.imageUrl : 'http://localhost:3001/images/' + `${nendoroid.imageUrl}`} 
             alt={nendoroid.name}
             style={{ 
-              width: 'inherit',
-              height: '21.1rem',
+              maxWidth: '15rem',
+              height: '22rem',
               objectFit: 'cover',
+              borderRadius: '0.5rem'
             }}
           />
         </Box>
