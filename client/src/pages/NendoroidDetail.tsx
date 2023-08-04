@@ -3,13 +3,6 @@ import {
   Heading,
   Text,
   HStack,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   Stack,
   useDisclosure,
   VStack
@@ -18,8 +11,8 @@ import {
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
 import axios from "axios"
-import NendoroidForm from "../components/NendoroidForm"
 import NendoroidObject from "../interfaces/global_interface"
+import UpdateModal from "../components/UpdateModal"
 
 export default function NendoroidDetail() {
   const [nendoroid, setNendoroid] = useState<NendoroidObject | null>(null)
@@ -112,38 +105,21 @@ export default function NendoroidDetail() {
           </Stack>
         {/* UPDATE AND DELETE BUTTONS */}
           <HStack>
-            <Button onClick={onOpen}>Update</Button>
-
+            <Button colorScheme='blue' onClick={onOpen}>Update</Button>
+            <Button>Delete</Button>
             {/* UPDATE MODAL */}
-            <Modal isOpen={isOpen} onClose={onClose} size='lg'>
-              <ModalOverlay/>
-              <ModalContent>
-                <ModalHeader>Update Nendoroid</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                  <NendoroidForm
-                    nameValue={nendoroid.name}
-                    priceValue={nendoroid.price}
-                    unitsValue={nendoroid.units}
-                    descriptionValue={nendoroid.description}
-
-                    nameRef={nameRef}
-                    priceRef={priceRef}
-                    unitsRef={unitsRef}
-                    descriptionRef={descriptionRef}
-                    imageUrlRef={imageUrlRef}
-
-                    setFileData={setFileData}
-                  />
-                </ModalBody>
-                <ModalFooter>
-                  <Button colorScheme='blue' mr={3} onClick={onClose}>
-                    Close
-                  </Button>
-                  <Button variant='ghost' onClick={(e) => handleUpdateInfo(e)}>Update</Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
+            <UpdateModal
+              nendoroid={nendoroid}
+              isOpen={isOpen}
+              onClose={onClose}
+              nameRef={nameRef}
+              priceRef={priceRef}
+              unitsRef={unitsRef}
+              descriptionRef={descriptionRef}
+              imageUrlRef={imageUrlRef}
+              setFileData={setFileData}
+              handleUpdateInfo={handleUpdateInfo}
+            />
         </HStack>
         </VStack>
       </HStack>
