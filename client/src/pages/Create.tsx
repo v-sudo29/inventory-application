@@ -27,8 +27,7 @@ export default function Create() {
       formData.append('imageUrl', '')
 
       axios.post('http://localhost:3001/create', formData)
-        .then(result => {
-          console.log(result)
+        .then(() => {
           navigate('/')
         }) 
         .catch(err => console.log(err))

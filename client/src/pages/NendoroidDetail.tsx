@@ -13,11 +13,13 @@ import { useEffect, useRef, useState } from "react"
 import axios from "axios"
 import NendoroidObject from "../interfaces/global_interface"
 import UpdateModal from "../components/UpdateModal"
+import DeleteModal from "../components/DeleteModal"
 
 export default function NendoroidDetail() {
   const [nendoroid, setNendoroid] = useState<NendoroidObject | null>(null)
   const [fileData, setFileData] = useState<File | null>(null)
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen: isUpdateOpen, onOpen: onUpdateOpen, onClose: onUpdateClose } = useDisclosure()
+  const { isOpen: isDeleteOpen, onOpen: onDeleteOpen, onClose: onDeleteClose } = useDisclosure()
   const nameRef = useRef<HTMLInputElement>(null)
   const priceRef = useRef<HTMLInputElement>(null)
   const unitsRef = useRef<HTMLInputElement>(null)
@@ -26,7 +28,7 @@ export default function NendoroidDetail() {
 
   const navigate = useNavigate()
   const params = useParams()
-  const id = params.id
+  const id = params.id 
 
   useEffect(() => {
     if (!nendoroid && id) {
@@ -37,7 +39,7 @@ export default function NendoroidDetail() {
   }, [nendoroid, id])
 
   const handleUpdateInfo = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-    e.preventDefault()
+    e.preventDefault() // TODO: remove e param
     let objectResponse
 
     if (nendoroid && nameRef.current && priceRef.current && descriptionRef.current && unitsRef.current && imageUrlRef.current) {
@@ -65,7 +67,7 @@ export default function NendoroidDetail() {
       axios.post(`http://localhost:3001/nendoroid/${id}/update`, objectResponse)
         .then(result => {
           console.log(result)
-          onClose()
+          onUpdateClose()
           navigate(0) // Refresh detail page
         }) 
         .catch(err => console.log(err))
@@ -105,13 +107,13 @@ export default function NendoroidDetail() {
           </Stack>
         {/* UPDATE AND DELETE BUTTONS */}
           <HStack>
-            <Button colorScheme='blue' onClick={onOpen}>Update</Button>
-            <Button>Delete</Button>
+            <Button colorScheme='blue' onClick={onUpdateOpen}>Update</Button>
+            <Button onClick={onDeleteOpen}>Delete</Button>
             {/* UPDATE MODAL */}
             <UpdateModal
               nendoroid={nendoroid}
-              isOpen={isOpen}
-              onClose={onClose}
+              isOpen={isUpdateOpen}
+              onClose={onUpdateClose}
               nameRef={nameRef}
               priceRef={priceRef}
               unitsRef={unitsRef}
@@ -119,6 +121,13 @@ export default function NendoroidDetail() {
               imageUrlRef={imageUrlRef}
               setFileData={setFileData}
               handleUpdateInfo={handleUpdateInfo}
+            />
+            {/* DELETE MODAL */}
+            <DeleteModal
+              isOpen={isDeleteOpen}
+              onClose={onDeleteClose}
+              imagePath={nendoroid.imageUrl}
+              id={id}
             />
         </HStack>
         </VStack>
