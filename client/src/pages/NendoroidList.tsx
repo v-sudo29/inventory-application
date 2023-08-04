@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Heading, HStack } from "@chakra-ui/react"
 import ListCard from "../components/ListCard"
-import NendoroidObject from "../interfaces/NendoroidObject"
+import NendoroidObject from "../interfaces/global_interfaces"
 
 // Inventory list
 export default function NendoroidList() {

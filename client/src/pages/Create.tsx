@@ -1,21 +1,7 @@
-import { 
-  Button,
-  Heading,
-  HStack,
-  Input,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  VStack,
-  Textarea
- } from "@chakra-ui/react"
-import { Form, useNavigate } from "react-router-dom"
+import { Heading, VStack } from "@chakra-ui/react"
+import { useNavigate } from "react-router-dom"
 import { useRef, useState } from "react"
+import NendoroidForm from "../components/NendoroidForm"
 import axios from "axios"
 
 export default function Create() {
@@ -55,7 +41,6 @@ export default function Create() {
   if (priceRef.current) priceError = priceRef.current.value === ''
   if (descriptionRef.current) descriptionError = descriptionRef.current.value === ''
 
-
   const formStyles = {
     'width': '100%',
     'display': 'flex',
@@ -71,60 +56,18 @@ export default function Create() {
       minW='20rem'
     >
       <Heading>Create Nendoroid</Heading>
-      <Form style={formStyles as React.CSSProperties} onSubmit={handleSubmit}> 
-
-        <FormControl>
-          {/* NAME, PRICE */}
-          <FormLabel>Name</FormLabel>
-          <Input mb='1rem' ref={nameRef} type='text' name='name'/>
-          {nameError && <FormErrorMessage>Name is required.</FormErrorMessage>}
-          <HStack w='100%'>
-            <VStack w='100%' align='start'>
-              <FormLabel>Price</FormLabel>
-              <NumberInput w='100%' ref={priceRef} precision={2} name='price'>
-                <NumberInputField />
-              </NumberInput>
-            </VStack>
-            <VStack w='100%' align='start'>
-              <FormLabel>Units</FormLabel>
-              <NumberInput w='100%' max={500} min={1}>
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-            </VStack>
-          </HStack>
-          {priceError && <FormErrorMessage>Price is required.</FormErrorMessage>}
-
-          {/* DESCRIPTION, FILE */}
-          <FormLabel>Description</FormLabel>
-          <Textarea
-            ref={descriptionRef}
-            placeholder="Enter a detailed description for Nendoroid..."
-            name='description'
-            h='null'
-            minH='0'
-            rows={10}
-            resize='none'
-          />
-          {descriptionError && <FormErrorMessage>Description is required.</FormErrorMessage>}
-          <Input 
-            ref={imageUrlRef} 
-            type='file' 
-            name='imageUrl'
-            border='transparent'
-            p='0rem'
-            pt='0.2rem'
-            mt='1rem'
-            onChange={(e) => e.target.files && setFileData(e.target.files[0])} 
-          />
-        </FormControl>
-
-        <Button type="submit">Create</Button>
-
-      </Form>
+      <NendoroidForm
+        formStyles={formStyles}
+        nameRef={nameRef}
+        priceRef={priceRef}
+        descriptionRef={descriptionRef}
+        imageUrlRef={imageUrlRef}
+        nameError={nameError}
+        priceError={priceError}
+        descriptionError={descriptionError}
+        handleSubmit={handleSubmit}
+        setFileData={setFileData}
+      />
     </VStack>
   )
 }

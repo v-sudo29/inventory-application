@@ -18,7 +18,7 @@ import {
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import NendoroidObject from "../interfaces/NendoroidObject"
+import NendoroidObject from "../interfaces/global_interfaces"
 
 export default function NendoroidDetail() {
   const [nendoroid, setNendoroid] = useState<NendoroidObject | null>(null)
@@ -61,13 +61,15 @@ export default function NendoroidDetail() {
         {/* UPDATE AND DELETE BUTTONS */}
           <HStack>
             <Button onClick={onOpen}>Update</Button>
+
+            {/* UPDATE MODAL */}
             <Modal isOpen={isOpen} onClose={onClose} size='lg'>
               <ModalOverlay/>
               <ModalContent>
                 <ModalHeader>Update Nendoroid</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                  
+
                 </ModalBody>
                 <ModalFooter>
                   <Button colorScheme='blue' mr={3} onClick={onClose}>

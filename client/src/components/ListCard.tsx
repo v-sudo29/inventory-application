@@ -1,6 +1,6 @@
 import { Box, Stack, Text } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
-import NendoroidObject from "../interfaces/NendoroidObject"
+import NendoroidObject from "../interfaces/global_interfaces"
 
 export default function ListCard({nendoroid} : {nendoroid: NendoroidObject}) {
   return (
