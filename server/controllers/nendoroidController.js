@@ -72,3 +72,18 @@ exports.nendoroid_update_post = asyncHandler(async (req, res, next) => {
   const result = await Nendoroid.findByIdAndUpdate(req.params.id, updatedNendoroid, {})
   res.json(result)
 })
+
+// POST request to delete Nendoroid
+exports.nendoroid_delete = asyncHandler(async (req, res, next) => {
+  const result = await Nendoroid.deleteOne({ _id: req.params.id })
+
+  // Delete old image file from public dir
+  const oldImgPath = path.join(__dirname, '../public', 'images', `${req.body.imagePath}`)
+  try {
+    await fs.promises.unlink(oldImgPath)
+  } catch (error) {
+    console.log(error)
+  }
+  console.log(result && 'Deleted Nendoroid!')
+  res.json('Deleted!')
+})
