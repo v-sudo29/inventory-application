@@ -1,6 +1,6 @@
 import { Box, Stack, Text } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
-import NendoroidObject from "../interfaces/global_interfaces"
+import NendoroidObject from "../interfaces/global_interface"
 
 export default function ListCard({nendoroid} : {nendoroid: NendoroidObject}) {
   return (
@@ -11,7 +11,8 @@ export default function ListCard({nendoroid} : {nendoroid: NendoroidObject}) {
       <Link to={`/nendoroid/${nendoroid._id}`}>
         <Box overflow='hidden' w='inherit'>
           <img 
-            src={nendoroid.imageUrl.includes('https') ? nendoroid.imageUrl : 'http://localhost:3001/images/' + `${nendoroid.imageUrl}`} 
+            src={nendoroid.imageUrl && nendoroid.imageUrl.includes('http') ? nendoroid.imageUrl : 'http://localhost:3001/images/' + `${nendoroid.imageUrl}` }
+            // src={nendoroid.imageUrl.includes('http') ? nendoroid.imageUrl : 'http://localhost:3001/images/' + `${nendoroid.imageUrl}`} 
             alt={nendoroid.name}
             style={{ 
               width: 'inherit',
