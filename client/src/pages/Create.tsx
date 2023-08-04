@@ -1,12 +1,16 @@
 import { 
   Button,
   Heading,
+  HStack,
   Input,
   FormControl,
   FormLabel,
   FormErrorMessage,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
   NumberInput,
   NumberInputField,
+  NumberInputStepper,
   VStack,
   Textarea
  } from "@chakra-ui/react"
@@ -70,16 +74,31 @@ export default function Create() {
       <Form style={formStyles as React.CSSProperties} onSubmit={handleSubmit}> 
 
         <FormControl>
+          {/* NAME, PRICE */}
           <FormLabel>Name</FormLabel>
           <Input mb='1rem' ref={nameRef} type='text' name='name'/>
           {nameError && <FormErrorMessage>Name is required.</FormErrorMessage>}
-          <FormLabel>Price</FormLabel>
-          <NumberInput ref={priceRef} precision={2} name='price'>
-            <NumberInputField />
-          </NumberInput>
+          <HStack w='100%'>
+            <VStack w='100%' align='start'>
+              <FormLabel>Price</FormLabel>
+              <NumberInput w='100%' ref={priceRef} precision={2} name='price'>
+                <NumberInputField />
+              </NumberInput>
+            </VStack>
+            <VStack w='100%' align='start'>
+              <FormLabel>Units</FormLabel>
+              <NumberInput w='100%' max={500} min={1}>
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+            </VStack>
+          </HStack>
           {priceError && <FormErrorMessage>Price is required.</FormErrorMessage>}
 
-
+          {/* DESCRIPTION, FILE */}
           <FormLabel>Description</FormLabel>
           <Textarea
             ref={descriptionRef}

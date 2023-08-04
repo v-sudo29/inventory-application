@@ -1,18 +1,15 @@
-import Header from "./Header"
+
 import { Outlet } from 'react-router-dom'
 import Sidebar from "./Sidebar"
-import { Box, Stack } from "@chakra-ui/react"
+import { Stack } from "@chakra-ui/react"
 
 export default function Layout() {
   return (
-    <>
-      <Header/>
-      <Stack flexDirection='row' h='calc(100vh - 6.5rem)'>
-        <Sidebar/>
-        <Box p='2rem' w='100%'>
-          <Outlet/>
-        </Box>
+    <Stack flexDirection='row' w='100%' h='100%'>
+      <Sidebar/>
+      <Stack p='6rem' h='100%' w='calc(100vw - 18.5rem)'>
+        <Outlet/>
       </Stack>
-    </>
+    </Stack>
   )
 }
