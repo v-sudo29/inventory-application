@@ -40,7 +40,7 @@ export default function NendoroidList() {
     <Box pos='relative' w='100%'>
       <HStack justify='space-between'>
         <Heading>Catalog</Heading>
-        <IconButton onClick={onCreateOpen} boxSize='3rem' aria-label='Create Nendoroid' icon={<AddIcon/> }/>
+        <IconButton onClick={onCreateOpen} mr='0.5rem' boxSize='3rem' aria-label='Create Nendoroid' icon={<AddIcon/> }/>
         <CreateModal
           isOpen={isCreateOpen}
           onClose={onCreateClose}

@@ -14,7 +14,6 @@ export default function ListCard({nendoroid} : {nendoroid: NendoroidObject}) {
           overflow='hidden'
           w='inherit'
           h='inherit'
-          border='1px solid red'
         >
           <img 
             src={nendoroid.imageUrl && nendoroid.imageUrl.includes('http') ? nendoroid.imageUrl : 'http://localhost:3001/images/' + `${nendoroid.imageUrl}` }
