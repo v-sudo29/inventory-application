@@ -2,7 +2,7 @@ import {
   Box,
   Heading,
   HStack,
-  Grid,
+  // Grid,
   IconButton,
   useDisclosure
 } from "@chakra-ui/react"
@@ -48,7 +48,7 @@ export default function NendoroidList() {
           onClose={onCreateClose}
         />
       </HStack>
-      {cards ? 
+      {/* {cards ? 
       <Grid 
         flexWrap='wrap' 
         gap='1rem' 
@@ -56,7 +56,7 @@ export default function NendoroidList() {
         templateColumns='repeat(auto-fit, minmax(15rem, 1fr))'
       >
         {cards}
-      </Grid> : '...Loading'}
+      </Grid> : '...Loading'} */}
     </Box>
   )
 }
