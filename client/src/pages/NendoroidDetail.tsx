@@ -30,6 +30,8 @@ export default function NendoroidDetail() {
   const params = useParams()
   const id = params.id 
 
+  let imgUrl: string = ''
+
   useEffect(() => {
     if (!nendoroid && id) {
       axios.get(`/api/nendoroid/${id}`)
@@ -74,12 +76,14 @@ export default function NendoroidDetail() {
     }
   }
 
+  if (nendoroid) imgUrl = new URL(`images/${nendoroid.imageUrl}`, import.meta.env.VITE_BASE_URL).href
+
   if (nendoroid) return (
     <VStack align='start' w='100%' h='100%'>
       <Heading fontSize='2rem' fontWeight='500'>Nendoroid {nendoroid.name}</Heading>
       <HStack align='start' h='100%' w='100%' gap='3rem'>
         <Stack overflow='hidden' minW='20rem' maxW='30rem' minH='15rem' maxH='30rem'>
-          <img src={nendoroid.imageUrl.includes('http') ? nendoroid.imageUrl : `/api/images/${nendoroid.imageUrl}`}
+          <img src={imgUrl}
             style={{ height: '30rem', objectFit: 'cover'}}
           />
         </Stack>
