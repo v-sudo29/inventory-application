@@ -10,7 +10,7 @@ import {
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { AddIcon } from "@chakra-ui/icons"
-import ListCard from "../components/ListCard"
+// import ListCard from "../components/ListCard"
 import NendoroidObject from "../interfaces/global_interface"
 import CreateModal from "../components/CreateModal"
 
@@ -18,7 +18,7 @@ import CreateModal from "../components/CreateModal"
 export default function NendoroidList() {
   const [nendoroidsList, setNendoroidsList] = useState<NendoroidObject[] | null>(null)
   const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure()
-  let cards: JSX.Element[] | null = null
+  // let cards: JSX.Element[] | null = null
 
   useEffect(() => {
     if (!nendoroidsList) {
