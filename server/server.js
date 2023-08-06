@@ -5,7 +5,7 @@ const cors = require('cors')
 const path = require('path')
 
 const app = express()
-
+const port = 8080
 const indexRouter = require('./routes/index')
 
 // Connect to database
@@ -19,6 +19,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use('/', indexRouter)
 
-app.listen(3001, () => {
+app.listen(8080, () => {
   console.log('Server is running')
 })
