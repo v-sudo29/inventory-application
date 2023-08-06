@@ -29,12 +29,13 @@ export default function NendoroidList() {
   }, [nendoroidsList])
 
   if (nendoroidsList) {
-    cards = nendoroidsList.map(nendoroid => 
-        <ListCard
-          key={`${nendoroid.name}-list-card`}
-          nendoroid={nendoroid}
-        />
-    )
+    // cards = nendoroidsList.map(nendoroid => 
+    //     <ListCard
+    //       key={`${nendoroid.name}-list-card`}
+    //       nendoroid={nendoroid}
+    //     />
+    // )
+    console.log(nendoroidsList)
   }
 
   return (
