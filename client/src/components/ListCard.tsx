@@ -16,8 +16,7 @@ export default function ListCard({nendoroid} : {nendoroid: NendoroidObject}) {
           h='inherit'
         >
           <img 
-            src={nendoroid.imageUrl && nendoroid.imageUrl.includes('http') ? nendoroid.imageUrl : 'http://localhost:3001/images/' + `${nendoroid.imageUrl}` }
-            // src={nendoroid.imageUrl.includes('http') ? nendoroid.imageUrl : 'http://localhost:3001/images/' + `${nendoroid.imageUrl}`} 
+            src={nendoroid.imageUrl && nendoroid.imageUrl.includes('http') ? nendoroid.imageUrl : '/api/images/' + `${nendoroid.imageUrl}` }
             alt={nendoroid.name}
             style={{ 
               maxWidth: '15rem',

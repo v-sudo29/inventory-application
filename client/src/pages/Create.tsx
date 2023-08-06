@@ -26,9 +26,9 @@ export default function Create() {
       formData.append('description', descriptionRef.current.value)
       formData.append('imageUrl', '')
 
-      axios.post('http://localhost:3001/create', formData)
+      axios.post('/api/create', formData)
         .then(() => {
-          navigate('/')
+          navigate('/api')
         }) 
         .catch(err => console.log(err))
     }

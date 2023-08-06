@@ -29,12 +29,11 @@ export default function DeleteModal({
   const navigate = useNavigate()
 
   const handleDelete = () => {
-
     const payload = { imagePath: imagePath }
-    axios.post(`http://localhost:3001/nendoroid/${id}/delete`, payload)
+    axios.post(`/api/nendoroid/${id}/delete/`, payload)
       .then(() => {
         onClose()
-        navigate('/') // Go back to catalog page
+        navigate(`/`) // Go back to catalog page
       })
       .catch(err => console.error(err))
   }
@@ -53,7 +52,7 @@ export default function DeleteModal({
             <Button colorScheme='blue' mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button onClick={handleDelete} variant='ghost'>Delete</Button>
+            <Button onClick={() => handleDelete()} variant='ghost'>Delete</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

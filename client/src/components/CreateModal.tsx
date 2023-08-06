@@ -36,9 +36,10 @@ export default function CreateModal({ isOpen, onClose } : { isOpen: boolean, onC
       formData.append('description', descriptionRef.current.value)
       formData.append('imageUrl', '')
 
-      axios.post('http://localhost:3001/create', formData)
+      axios.post('/api/create', formData)
         .then(() => {
-          navigate('/')
+          onClose()
+          navigate(0)
         }) 
         .catch(err => console.log(err))
     }

@@ -32,7 +32,7 @@ export default function NendoroidDetail() {
 
   useEffect(() => {
     if (!nendoroid && id) {
-      axios.get(`http://localhost:3001/nendoroid/${id}`)
+      axios.get(`/api/nendoroid/${id}`)
         .then(result => setNendoroid(result.data[0]))
         .catch(err => console.log(err))
     }
@@ -64,7 +64,7 @@ export default function NendoroidDetail() {
           imageUrl: nendoroid.imageUrl
         }
       }
-      axios.post(`http://localhost:3001/nendoroid/${id}/update`, objectResponse)
+      axios.post(`/api/nendoroid/${id}/update`, objectResponse)
         .then(result => {
           console.log(result)
           onUpdateClose()
@@ -79,7 +79,7 @@ export default function NendoroidDetail() {
       <Heading fontSize='2rem' fontWeight='500'>Nendoroid {nendoroid.name}</Heading>
       <HStack align='start' h='100%' w='100%' gap='3rem'>
         <Stack overflow='hidden' minW='20rem' maxW='30rem' minH='15rem' maxH='30rem'>
-          <img src={nendoroid.imageUrl.includes('http') ? nendoroid.imageUrl : `http://localhost:3001/images/${nendoroid.imageUrl}`}
+          <img src={nendoroid.imageUrl.includes('http') ? nendoroid.imageUrl : `/api/images/${nendoroid.imageUrl}`}
             style={{ height: '30rem', objectFit: 'cover'}}
           />
         </Stack>
