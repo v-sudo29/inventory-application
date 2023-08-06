@@ -36,6 +36,7 @@ export default function NendoroidList() {
         />
     )
   }
+
   return (
     <Box pos='relative' w='100%'>
       <HStack justify='space-between'>
