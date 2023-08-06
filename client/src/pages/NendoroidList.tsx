@@ -2,7 +2,7 @@ import {
   Box,
   Heading,
   HStack,
-  // Grid,
+  Grid,
   IconButton,
   useDisclosure
 } from "@chakra-ui/react"
@@ -10,7 +10,7 @@ import {
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { AddIcon } from "@chakra-ui/icons"
-// import ListCard from "../components/ListCard"
+import ListCard from "../components/ListCard"
 import NendoroidObject from "../interfaces/global_interface"
 import CreateModal from "../components/CreateModal"
 
@@ -18,24 +18,23 @@ import CreateModal from "../components/CreateModal"
 export default function NendoroidList() {
   const [nendoroidsList, setNendoroidsList] = useState<NendoroidObject[] | null>(null)
   const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure()
-  // let cards: JSX.Element[] | null = null
+  let cards: JSX.Element[] | null = null
 
   useEffect(() => {
     if (!nendoroidsList) {
-      axios.get('/') // TODO: change path to /catalog
+      axios.get('/api') // TODO: change path to /catalog
       .then(data => setNendoroidsList(data.data))
       .catch(err => console.error(err))
     }
   }, [nendoroidsList])
 
   if (nendoroidsList) {
-    // cards = nendoroidsList.map(nendoroid => 
-    //     <ListCard
-    //       key={`${nendoroid.name}-list-card`}
-    //       nendoroid={nendoroid}
-    //     />
-    // )
-    console.log(nendoroidsList)
+    cards = nendoroidsList.map(nendoroid => 
+        <ListCard
+          key={`${nendoroid.name}-list-card`}
+          nendoroid={nendoroid}
+        />
+    )
   }
 
   return (
@@ -48,7 +47,7 @@ export default function NendoroidList() {
           onClose={onCreateClose}
         />
       </HStack>
-      {/* {cards ? 
+      {cards ? 
       <Grid 
         flexWrap='wrap' 
         gap='1rem' 
@@ -56,7 +55,7 @@ export default function NendoroidList() {
         templateColumns='repeat(auto-fit, minmax(15rem, 1fr))'
       >
         {cards}
-      </Grid> : '...Loading'} */}
+      </Grid> : '...Loading'}
     </Box>
   )
 }

@@ -10,7 +10,7 @@ export default ({ mode }) => {
     plugins: [react()],
     server: { 
       proxy: {
-        "/api": {
+        "^/api": {
           target: process.env.VITE_BASE_URL,
           changeOrigin: true,
           secure: false,
