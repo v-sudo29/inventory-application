@@ -53,8 +53,8 @@ export default function NendoroidList() {
       </HStack>
       {cards ? 
         <Grid
-          templateColumns='repeat(auto-fill, minmax(10rem, 1fr))'
-          templateRows='repeat(auto-fit, minmax(15rem, 1fr))'
+          templateColumns='repeat(auto-fill, minmax(12rem, 1fr))'
+          templateRows='repeat(auto-fill, minmax(22rem, 1fr))'
           gridGap='3rem'
           mt='2rem'
         >

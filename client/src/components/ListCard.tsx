@@ -5,7 +5,9 @@ import NendoroidObject from "../interfaces/global_interface"
 export default function ListCard({nendoroid} : {nendoroid: NendoroidObject}) {
 
   return (
-    <Box border='1px solid red'>
+    <Box
+      shadow='md'
+    >
       <Link 
         style={{ 
           height:'inherit',
@@ -30,7 +32,7 @@ export default function ListCard({nendoroid} : {nendoroid: NendoroidObject}) {
               }}
             />
         </Stack>
-        <Box>
+        <Box p='1rem'>
           <Text fontWeight='600' fontSize='1.2rem'>{nendoroid.name}</Text>
           <Text color='gray.500'>{nendoroid.units} units</Text>
           <Text fontWeight='500' fontSize='1.2rem'>{nendoroid.price && nendoroid.price.includes('$') ? nendoroid.price : '$' + nendoroid.price}</Text>
