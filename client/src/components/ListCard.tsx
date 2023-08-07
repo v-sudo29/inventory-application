@@ -4,8 +4,6 @@ import NendoroidObject from "../interfaces/global_interface"
 
 export default function ListCard({nendoroid} : {nendoroid: NendoroidObject}) {
 
-  const imgUrl = new URL(`images/${nendoroid.imageUrl}`, import.meta.env.VITE_BASE_URL).href
-
   return (
     <Stack 
       align='start' 
@@ -19,7 +17,7 @@ export default function ListCard({nendoroid} : {nendoroid: NendoroidObject}) {
           h='inherit'
         >
           <img 
-            src={imgUrl}
+            src={nendoroid.imageUrl}
             alt={nendoroid.name}
             style={{ 
               maxWidth: '15rem',

@@ -16,6 +16,6 @@ router.post('/nendoroid/:id/update', nendoroid_controller.nendoroid_update_post)
 router.post('/create', upload.single('file'),  nendoroid_controller.nendoroid_create_post)
 
 // DELETE request to remove Nendoroid
-router.post('/nendoroid/:id/delete', nendoroid_controller.nendoroid_delete)
+router.delete('/nendoroid/:id/delete', nendoroid_controller.nendoroid_delete)
 
 module.exports = router

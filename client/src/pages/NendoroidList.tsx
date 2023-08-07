@@ -22,7 +22,7 @@ export default function NendoroidList() {
 
   useEffect(() => {
     if (!nendoroidsList) {
-      axios.get('/api') // TODO: change path to /catalog
+      axios.get("/api") // TODO: change path to /catalog
       .then(data => setNendoroidsList(data.data))
       .catch(err => console.error(err))
     }

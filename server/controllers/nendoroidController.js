@@ -5,7 +5,7 @@ const upload = require('../helpers/upload')
 const path = require('path')
 const fs = require('fs')
 
-const { S3Client, PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 const crypto = require('crypto')
@@ -38,14 +38,23 @@ exports.nendoroid_list = asyncHandler(async (req, res, next) => {
     const url = await getSignedUrl(s3, command, { expiresIn: 3600 })
     nendoroid.imageUrl = url
   }
-
   res.json(allNendoroids)
 })
 
 // GET detail of Nendoroid
 exports.nendoroid_detail = asyncHandler(async (req, res, next) => {
   const id = req.params.id
-  const nendoroidDetails = await Nendoroid.find({_id: id}).exec()
+  const nendoroidDetails = await Nendoroid.findById(id).lean().exec()
+
+  console.log('details!', nendoroidDetails)
+  const getObjectParams = {
+    Bucket: BUCKET_NAME,
+    Key: nendoroidDetails.imageName, // Image name of image we're trying to retrieve
+  }
+  const command = new GetObjectCommand(getObjectParams);
+  const url = await getSignedUrl(s3, command, { expiresIn: 3600 })
+  nendoroidDetails.imageUrl = url
+
   res.json(nendoroidDetails)
 })
 
@@ -124,15 +133,29 @@ exports.nendoroid_update_post = asyncHandler(async (req, res, next) => {
 
 // POST request to delete Nendoroid
 exports.nendoroid_delete = asyncHandler(async (req, res, next) => {
-  const result = await Nendoroid.deleteOne({ _id: req.params.id })
+  const nendoroid = await Nendoroid.findById(req.params.id)
 
-  // Delete old image file from public dir
-  const oldImgPath = path.join(__dirname, '../public', 'images', `${req.body.imagePath}`)
-  try {
-    await fs.promises.unlink(oldImgPath)
-  } catch (error) {
-    console.log(error)
+  if (!nendoroid) {
+    res.status(404).send('Nendoroid not found')
+    return
   }
-  console.log(result && 'Deleted Nendoroid!')
-  res.json('Deleted!')
+
+  const params = {
+    Bucket: BUCKET_NAME,
+    Key: nendoroid.imageName
+  }
+
+  try {
+    // Delete image from s3
+    const command = new DeleteObjectCommand(params)
+    await s3.send(command)
+
+    // Delete nendoroid from database
+    const result = await Nendoroid.deleteOne({ _id: req.params.id })
+    res.json(result)
+    console.log('Deleted from S3 and Database!')
+  } catch (err) {
+    res.json(err)
+    console.log(err)
+  }
 })

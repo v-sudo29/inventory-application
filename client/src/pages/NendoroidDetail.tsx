@@ -30,15 +30,15 @@ export default function NendoroidDetail() {
   const params = useParams()
   const id = params.id 
 
-  let imgUrl: string = ''
-
   useEffect(() => {
     if (!nendoroid && id) {
       axios.get(`/api/nendoroid/${id}`)
-        .then(result => setNendoroid(result.data[0]))
+        .then(result => setNendoroid(result.data))
         .catch(err => console.log(err))
     }
   }, [nendoroid, id])
+
+  console.log(nendoroid)
 
   const handleUpdateInfo = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     e.preventDefault() // TODO: remove e param
@@ -76,14 +76,12 @@ export default function NendoroidDetail() {
     }
   }
 
-  if (nendoroid) imgUrl = new URL(`images/${nendoroid.imageUrl}`, import.meta.env.VITE_BASE_URL).href
-
   if (nendoroid) return (
     <VStack align='start' w='100%' h='100%'>
       <Heading fontSize='2rem' fontWeight='500'>Nendoroid {nendoroid.name}</Heading>
       <HStack align='start' h='100%' w='100%' gap='3rem'>
         <Stack overflow='hidden' minW='20rem' maxW='30rem' minH='15rem' maxH='30rem'>
-          <img src={imgUrl}
+          <img src={nendoroid.imageUrl}
             style={{ height: '30rem', objectFit: 'cover'}}
           />
         </Stack>
