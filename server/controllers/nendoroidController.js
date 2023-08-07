@@ -32,13 +32,13 @@ exports.nendoroid_list = asyncHandler(async (req, res, next) => {
   for (let nendoroid of allNendoroids) {
     const getObjectParams = {
       Bucket: BUCKET_NAME,
-      Key: nendoroid.imageName ? nendoroid.imageName : 'hi', // Image name of image we're trying to retrieve
+      Key: nendoroid.imageName, // Image name of image we're trying to retrieve
     }
     const command = new GetObjectCommand(getObjectParams);
     const url = await getSignedUrl(s3, command, { expiresIn: 3600 })
     nendoroid.imageUrl = url
   }
-  console.log(allNendoroids)
+
   res.json(allNendoroids)
 })
 
