@@ -46,7 +46,6 @@ exports.nendoroid_detail = asyncHandler(async (req, res, next) => {
   const id = req.params.id
   const nendoroidDetails = await Nendoroid.findById(id).lean().exec()
 
-  console.log('details!', nendoroidDetails)
   const getObjectParams = {
     Bucket: BUCKET_NAME,
     Key: nendoroidDetails.imageName, // Image name of image we're trying to retrieve
@@ -60,8 +59,6 @@ exports.nendoroid_detail = asyncHandler(async (req, res, next) => {
 
 // POST request to create new Nendoroid
 exports.nendoroid_create_post = asyncHandler(async (req, res, next) => {
-  console.log(req.file.buffer)
-
   const imageName = randomImageName()
   const params = {
     Bucket: BUCKET_NAME,
@@ -94,6 +91,7 @@ exports.nendoroid_create_post = asyncHandler(async (req, res, next) => {
 // POST request to update Nendoroid
 exports.nendoroid_update_post = asyncHandler(async (req, res, next) => {
   const nendoroid = await Nendoroid.findById(req.params.id)
+  const imageName = randomImageName()
   let updatedNendoroid
 
   // Check if new file uploaded 
@@ -103,32 +101,43 @@ exports.nendoroid_update_post = asyncHandler(async (req, res, next) => {
       price: req.body.price,
       description: req.body.description,
       units: req.body.units,
-      imageUrl: nendoroid.imageUrl,
-      _id: req.params.id // This is required,  or a new ID will be assigned
+      imageName: nendoroid.imageName,
+      _id: req.params.id // This is required or a new ID will be assigned
     })
   } else {
-    // Add file to public dir (multer)
-    upload.single('file')
-
-    // Delete old image file from public dir
-    const oldImgPath = path.join(__dirname, '../public', 'images', `${nendoroid.imageUrl}`)
-    try {
-      await fs.promises.unlink(oldImgPath)
-    } catch (error) {
-      console.log(error)
+    const newParams = {
+      Bucket: BUCKET_NAME,
+      Key: imageName, // Must be unique to prevent name collisions
+      Body: req.file.buffer,
+      ContentType: req.file.mimetype,
     }
 
+    const oldParams = {
+      Bucket: BUCKET_NAME,
+      Key: nendoroid.imageName
+    }
+  
+    // Save image info to S3 bucket
+    const command = new PutObjectCommand(newParams)
+    await s3.send(command)
+
+    // Delete prev image from S3
+    const commandTwo = new DeleteObjectCommand(oldParams)
+    await s3.send(commandTwo)
+
+    // Update imageName in database
     updatedNendoroid = new Nendoroid ({
       name: req.body.name,
       price: req.body.price,
       description: req.body.description,
       units: req.body.units,
-      imageUrl: req.file.filename,
+      imageName: imageName,
       _id: req.params.id // This is required,  or a new ID will be assigned
     })
   }
   const result = await Nendoroid.findByIdAndUpdate(req.params.id, updatedNendoroid, {})
-  res.json(result)
+  res.json(req.body)
+  console.log(result)
 })
 
 // POST request to delete Nendoroid
