@@ -29,6 +29,7 @@ export default function NendoroidList() {
   }, [nendoroidsList])
 
   if (nendoroidsList) {
+    console.log('List: ',nendoroidsList)
     cards = nendoroidsList.map(nendoroid => 
         <ListCard
           key={`${nendoroid.name}-list-card`}

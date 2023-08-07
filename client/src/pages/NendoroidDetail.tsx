@@ -38,7 +38,7 @@ export default function NendoroidDetail() {
     }
   }, [nendoroid, id])
 
-  if (nendoroid) console.log(nendoroid)
+  if (nendoroid) console.log('nendoroid and id: ',nendoroid, id)
 
   const handleUpdateInfo = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     e.preventDefault() // TODO: remove e param
