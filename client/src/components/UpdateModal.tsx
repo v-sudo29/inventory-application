@@ -22,7 +22,7 @@ interface UpdateModal {
   descriptionRef: React.RefObject<HTMLTextAreaElement>,
   imageUrlRef: React.RefObject<HTMLInputElement>,
   setFileData: React.Dispatch<React.SetStateAction<File | null>>,
-  handleUpdateInfo:(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  handleUpdateInfo:(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
 }
 
 export default function UpdateModal({

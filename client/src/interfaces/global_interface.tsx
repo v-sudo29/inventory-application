@@ -3,8 +3,9 @@ interface NendoroidObject {
   name: string,
   price: string,
   description: string,
-  imageUrl: string,
-  units: number
+  imageName: string,
+  units: number,
+  imageUrl?: string
 }
 
 export default NendoroidObject

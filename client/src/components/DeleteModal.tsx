@@ -16,21 +16,18 @@ import { useNavigate } from "react-router-dom"
 interface DeleteModal {
   isOpen: boolean,
   onClose: () => void,
-  imagePath: string,
   id: string | undefined
 }
 
 export default function DeleteModal({
   isOpen,
   onClose,
-  imagePath,
   id
 }: DeleteModal) {
   const navigate = useNavigate()
 
   const handleDelete = () => {
-    const payload = { imagePath: imagePath }
-    axios.post(`/api/nendoroid/${id}/delete/`, payload)
+    axios.delete(`/api/nendoroid/${id}/delete/`)
       .then(() => {
         onClose()
         navigate(`/`) // Go back to catalog page

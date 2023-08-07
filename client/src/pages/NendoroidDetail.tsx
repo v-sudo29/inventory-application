@@ -38,8 +38,6 @@ export default function NendoroidDetail() {
     }
   }, [nendoroid, id])
 
-  console.log(nendoroid)
-
   const handleUpdateInfo = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     e.preventDefault() // TODO: remove e param
     let objectResponse
@@ -47,23 +45,22 @@ export default function NendoroidDetail() {
     if (nendoroid && nameRef.current && priceRef.current && descriptionRef.current && unitsRef.current && imageUrlRef.current) {
       if (fileData) {
         objectResponse = new FormData()
-        console.log('ran!')
 
-        // objectResponse.append('file', fileData ? fileData : 'no file')
         objectResponse.append('file', fileData)
         objectResponse.append('name', nameRef.current.value)
         objectResponse.append('price', (priceRef.current.firstElementChild as HTMLInputElement).value)
         objectResponse.append('units', (unitsRef.current.firstElementChild as HTMLInputElement).value)
         objectResponse.append('description', descriptionRef.current.value)
         objectResponse.append('imageUrl', 'hi')
+        console.log(objectResponse)
       } else {
-        console.log('else statement ran!')
+
         objectResponse = {
           name: nameRef.current.value,
           price: (priceRef.current.firstElementChild as HTMLInputElement).value,
           units: (unitsRef.current.firstElementChild as HTMLInputElement).value,
           description: descriptionRef.current.value,
-          imageUrl: nendoroid.imageUrl
+          imageName: nendoroid.imageName
         }
       }
       axios.post(`/api/nendoroid/${id}/update`, objectResponse)
@@ -96,7 +93,7 @@ export default function NendoroidDetail() {
           flexWrap='wrap'
         >
           <Text><b>Description:</b> {nendoroid.description}</Text>
-          <Text><b>Price:</b> {nendoroid.price.includes('$') ? nendoroid.price : '$' + nendoroid.price}</Text>
+          <Text><b>Price:</b> {nendoroid.price && nendoroid.price.includes('$') ? nendoroid.price : '$' + nendoroid.price}</Text>
           <Text><b>Units: </b>{nendoroid.units < 20 ? 
             <span>
               <>{nendoroid.units}</> 
@@ -128,7 +125,6 @@ export default function NendoroidDetail() {
             <DeleteModal
               isOpen={isDeleteOpen}
               onClose={onDeleteClose}
-              imagePath={nendoroid.imageUrl}
               id={id}
             />
         </HStack>

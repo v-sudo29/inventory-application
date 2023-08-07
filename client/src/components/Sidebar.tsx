@@ -21,7 +21,6 @@ export default function Sidebar() {
     >
       <nav className="nav-links" style={navStyles as React.CSSProperties}>
         <NavLink to='/'>Catalog</NavLink>
-        <NavLink to='/create'>Create new Nendoroid</NavLink>
       </nav>
     </Stack>
   )
