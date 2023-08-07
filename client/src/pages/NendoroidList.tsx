@@ -1,10 +1,10 @@
 import { 
-  Box,
   Heading,
   HStack,
-  Grid,
+  Stack,
   IconButton,
-  useDisclosure
+  useDisclosure,
+  Grid
 } from "@chakra-ui/react"
 
 import axios from "axios"
@@ -38,24 +38,28 @@ export default function NendoroidList() {
   }
 
   return (
-    <Box pos='relative' w='100%'>
+    <Stack 
+      pos='relative' 
+      w='100%'
+      h='100%'
+    >
       <HStack justify='space-between'>
         <Heading>Catalog</Heading>
-        <IconButton onClick={onCreateOpen} mr='0.5rem' boxSize='3rem' aria-label='Create Nendoroid' icon={<AddIcon/> }/>
+        <IconButton onClick={onCreateOpen} boxSize='3rem' aria-label='Create Nendoroid' icon={<AddIcon/> }/>
         <CreateModal
           isOpen={isCreateOpen}
           onClose={onCreateClose}
         />
       </HStack>
       {cards ? 
-      <Grid 
-        flexWrap='wrap' 
-        gap='1rem' 
-        mt='2rem'
-        templateColumns='repeat(auto-fit, minmax(15rem, 1fr))'
-      >
-        {cards}
-      </Grid> : '...Loading'}
-    </Box>
+        <Grid
+          templateColumns='repeat(auto-fill, minmax(10rem, 1fr))'
+          templateRows='repeat(auto-fit, minmax(15rem, 1fr))'
+          gridGap='3rem'
+          mt='2rem'
+        >
+          {cards}
+        </Grid> : '...Loading'}
+    </Stack>
   )
 }
