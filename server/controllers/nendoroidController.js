@@ -53,7 +53,7 @@ exports.nendoroid_detail = asyncHandler(async (req, res, next) => {
   const command = new GetObjectCommand(getObjectParams);
   const url = await getSignedUrl(s3, command, { expiresIn: 3600 })
   nendoroidDetails.imageUrl = url
-
+  console.log(nendoroidDetails)
   res.json(nendoroidDetails)
 })
 
