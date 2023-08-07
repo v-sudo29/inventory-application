@@ -27,7 +27,6 @@ export default function ListCard({nendoroid} : {nendoroid: NendoroidObject}) {
               alt={nendoroid.name}
               style={{ 
                 minHeight: '23rem',
-                // minWidth:  '10rem',
                 objectFit: 'cover',
               }}
             />
