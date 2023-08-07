@@ -4,8 +4,6 @@ import NendoroidObject from "../interfaces/global_interface"
 
 export default function ListCard({ nendoroid } : { nendoroid: NendoroidObject }) {
 
-  if (nendoroid) console.log(nendoroid)
-  
   return (
     <Box
       shadow='md'
