@@ -13,10 +13,9 @@ export default function Sidebar() {
 
   return (
     <Stack
-      pos='sticky'
-      top='0'
       flex='column'
       minW='18rem'
+      minH='100vh'
       color='cyan.500'
       fontSize='1.1rem'
       boxShadow='base'

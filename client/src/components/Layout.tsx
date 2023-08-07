@@ -5,7 +5,7 @@ import { Stack } from "@chakra-ui/react"
 
 export default function Layout() {
   return (
-    <Stack flexDirection='row' w='100%' h='100%'>
+    <Stack flexDirection='row' w='100%' h='inherit'>
       <Sidebar/>
       <Stack p='6rem' h='100%' w='calc(100vw - 18.5rem)'>
         <Outlet/>
