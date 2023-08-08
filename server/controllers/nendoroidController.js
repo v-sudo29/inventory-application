@@ -43,18 +43,19 @@ exports.nendoroid_list = asyncHandler(async (req, res, next) => {
 
 // GET detail of Nendoroid
 exports.nendoroid_detail = asyncHandler(async (req, res, next) => {
-  const id = req.params.id
-  const nendoroidDetails = await Nendoroid.findById(id).lean().exec()
+  // const id = req.params.id
+  // const nendoroidDetails = await Nendoroid.findById(id).lean().exec()
 
-  const getObjectParams = {
-    Bucket: BUCKET_NAME,
-    Key: nendoroidDetails.imageName, // Image name of image we're trying to retrieve
-  }
-  const command = new GetObjectCommand(getObjectParams);
-  const url = await getSignedUrl(s3, command, { expiresIn: 3600 })
-  nendoroidDetails.imageUrl = url
-  console.log(nendoroidDetails)
-  res.json(nendoroidDetails)
+  // const getObjectParams = {
+  //   Bucket: BUCKET_NAME,
+  //   Key: nendoroidDetails.imageName, // Image name of image we're trying to retrieve
+  // }
+  // const command = new GetObjectCommand(getObjectParams);
+  // const url = await getSignedUrl(s3, command, { expiresIn: 3600 })
+  // nendoroidDetails.imageUrl = url
+  // console.log(nendoroidDetails)
+  // res.json(nendoroidDetails)
+  res.json('hi there')
 })
 
 // POST request to create new Nendoroid
