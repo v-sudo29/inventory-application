@@ -66,8 +66,7 @@ export default function NendoroidDetail() {
         }
       }
       axiosConfig.post(`/nendoroid/${id}/update`, objectResponse)
-        .then(result => {
-          console.log(result)
+        .then(() => {
           onUpdateClose()
           navigate(0) // Refresh detail page
         }) 
