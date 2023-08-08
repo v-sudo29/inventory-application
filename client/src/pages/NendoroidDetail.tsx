@@ -10,7 +10,7 @@ import {
 
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
-import axios from "axios"
+import axiosConfig from '../axiosConfig'
 import NendoroidObject from "../interfaces/global_interface"
 import UpdateModal from "../components/UpdateModal"
 import DeleteModal from "../components/DeleteModal"
@@ -32,7 +32,7 @@ export default function NendoroidDetail() {
 
   useEffect(() => {
     if (!nendoroid && id) {
-      axios.get('/api' +`/nendoroid/${id}`)
+      axiosConfig.get(`/nendoroid/${id}`)
         .then(result => setNendoroid(result.data))
         .catch(err => console.log(err))
     }
@@ -65,7 +65,7 @@ export default function NendoroidDetail() {
           imageName: nendoroid.imageName
         }
       }
-      axios.post(`/api/nendoroid/${id}/update`, objectResponse)
+      axiosConfig.post(`/nendoroid/${id}/update`, objectResponse)
         .then(result => {
           console.log(result)
           onUpdateClose()
