@@ -7,7 +7,7 @@ import {
   Grid
 } from "@chakra-ui/react"
 
-import axios from "axios"
+import axiosConfig from '../axiosConfig'
 import { useEffect, useState } from "react"
 import { AddIcon } from "@chakra-ui/icons"
 import ListCard from "../components/ListCard"
@@ -22,22 +22,18 @@ export default function NendoroidList() {
 
   useEffect(() => {
     if (!nendoroidsList) {
-      axios.get("/api") // TODO: change path to /catalog
+      axiosConfig.get('/') // TODO: change path to /catalog
       .then(data => setNendoroidsList(data.data))
       .catch(err => console.error(err))
     }
   }, [nendoroidsList])
 
   if (nendoroidsList) {
-    cards = nendoroidsList.map(nendoroid => {
-      console.log(nendoroid)
-      return (
-        <ListCard
-          key={`${nendoroid.name}-list-card`}
-          nendoroid={nendoroid}
-        />
-      )
-    }
+    cards = nendoroidsList.map(nendoroid =>
+      <ListCard
+        key={`${nendoroid.name}-list-card`}
+        nendoroid={nendoroid}
+      />
     )
   }
 

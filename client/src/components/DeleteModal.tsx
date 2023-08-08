@@ -10,7 +10,7 @@ import {
   Text
 } from "@chakra-ui/react"
 
-import axios from "axios"
+import axiosConfig from '../axiosConfig'
 import { useNavigate } from "react-router-dom"
 
 interface DeleteModal {
@@ -27,7 +27,7 @@ export default function DeleteModal({
   const navigate = useNavigate()
 
   const handleDelete = () => {
-    axios.delete(`/api/nendoroid/${id}/delete/`)
+    axiosConfig.delete(`/nendoroid/${id}/delete/`)
       .then(() => {
         onClose()
         navigate(`/`) // Go back to catalog page

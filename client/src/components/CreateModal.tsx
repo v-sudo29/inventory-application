@@ -12,7 +12,7 @@ import {
 import { useNavigate } from "react-router-dom"
 import { useRef, useState } from "react"
 import NendoroidForm from "../components/NendoroidForm"
-import axios from "axios"
+import axiosConfig from '../axiosConfig'
 
 export default function CreateModal({ isOpen, onClose } : { isOpen: boolean, onClose: () => void }) {
   const nameRef = useRef<HTMLInputElement>(null)
@@ -36,9 +36,8 @@ export default function CreateModal({ isOpen, onClose } : { isOpen: boolean, onC
       formData.append('description', descriptionRef.current.value)
       formData.append('imageUrl', '')
 
-      axios.post('/api/create', formData)
+      axiosConfig.post('/create', formData)
         .then(result => {
-          console.log('created!')
           console.log(result)
           onClose()
           navigate(0)
