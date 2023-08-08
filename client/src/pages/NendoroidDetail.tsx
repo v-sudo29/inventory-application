@@ -32,7 +32,7 @@ export default function NendoroidDetail() {
 
   useEffect(() => {
     if (!nendoroid && id) {
-      axios.get(`/api/nendoroid/${id}`)
+      axios.get('/api' +`/nendoroid/${id}`)
         .then(result => setNendoroid(result.data))
         .catch(err => console.log(err))
     }
